@@ -109,7 +109,10 @@ function initMarquee() {
     ease: "none",
     scrollTrigger: { trigger: scrollContainer, start: "top top", end: "bottom bottom", scrub: true },
   });
-  const fadeIn = 0.03, fadeInEnd = 0.09, fadeOutStart = 0.42, fadeOut = 0.48;
+  // Ends before section 2 ("Our Craft", bottom-band) enters at 0.24, and the
+  // wrap now sits low (top:80%) to clear the badge -- both chosen so the
+  // marquee never crosses the badge or foreground section text.
+  const fadeIn = 0.03, fadeInEnd = 0.09, fadeOutStart = 0.19, fadeOut = 0.23;
   ScrollTrigger.create({
     trigger: scrollContainer,
     start: "top top",

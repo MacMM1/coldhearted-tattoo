@@ -158,7 +158,7 @@ button:focus-visible {
 
 /* ---------- Marquee ---------- */
 .marquee-wrap {
-  position: fixed; top: 50%; left: 0; width: 100%; z-index: 4;
+  position: fixed; top: 80%; left: 0; width: 100%; z-index: 4;
   transform: translateY(-50%);
   overflow: hidden; white-space: nowrap; pointer-events: none;
   opacity: 0;

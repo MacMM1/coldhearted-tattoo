@@ -145,10 +145,12 @@ button:focus-visible {
   position: fixed; inset: 0; z-index: 1;
   display: flex; align-items: center; justify-content: center;
   background: var(--ink);
+  -webkit-perspective: 1800px;
   perspective: 1800px;
 }
 .badge-stage {
   position: relative;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -156,6 +158,7 @@ button:focus-visible {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   display: block;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 .badge-front { transform: rotateY(0deg); }

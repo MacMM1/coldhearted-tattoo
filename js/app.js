@@ -1,19 +1,12 @@
-const FRAME_COUNT = 73;
-const FRAME_SPEED = 2.0;
+const ROTATION_SPEED = 2.0;
 // The badge is a wide horizontal lockup (~1.8:1, close to the viewport's own
 // aspect ratio), so the usual 0.82-0.90 "padded cover" range for tall/narrow
 // products would make it fill nearly the full width and height here, leaving
 // no room for the top/bottom text bands. Scaled down well below that range
 // so it reads as a centered emblem with real margins above and below.
 const IMAGE_SCALE = 0.34;
-const FRAME_PATH = (i) => `frames/frame_${String(i).padStart(4, "0")}.webp`;
 
-const frames = new Array(FRAME_COUNT);
-let currentFrame = 0;
-
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const canvasWrap = document.querySelector(".canvas-wrap");
+const badge = document.getElementById("badge");
 const heroSection = document.querySelector(".hero-standalone");
 const scrollContainer = document.getElementById("scroll-container");
 const loader = document.getElementById("loader");
@@ -22,47 +15,25 @@ const loaderPercent = document.getElementById("loader-percent");
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function resizeCanvas() {
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  drawFrame(currentFrame);
-}
-
-function drawFrame(index) {
-  const img = frames[index];
-  if (!img) return;
+function resizeBadge() {
   const cw = window.innerWidth, ch = window.innerHeight;
-  const iw = img.naturalWidth, ih = img.naturalHeight;
+  const iw = badge.naturalWidth, ih = badge.naturalHeight;
   if (!iw || !ih) return;
   const scale = Math.max(cw / iw, ch / ih) * IMAGE_SCALE;
-  const dw = iw * scale, dh = ih * scale;
-  const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
-  ctx.clearRect(0, 0, cw, ch);
-  ctx.drawImage(img, dx, dy, dw, dh);
+  badge.style.width = (iw * scale) + "px";
+  badge.style.height = (ih * scale) + "px";
 }
 
-function loadFrames() {
+function loadBadgeImage() {
   return new Promise((resolve) => {
-    let loaded = 0;
-    const updateProgress = () => {
-      loaded++;
-      const pct = Math.round((loaded / FRAME_COUNT) * 100);
-      loaderBarFill.style.width = pct + "%";
-      loaderPercent.textContent = pct + "%";
-      if (loaded >= FRAME_COUNT) resolve();
+    const done = () => {
+      loaderBarFill.style.width = "100%";
+      loaderPercent.textContent = "100%";
+      resolve();
     };
-    const loadOne = (i) => {
-      const img = new Image();
-      img.onload = updateProgress;
-      img.onerror = updateProgress;
-      img.src = FRAME_PATH(i);
-      frames[i - 1] = img;
-    };
-    // First 10 immediately for fast first paint, then the rest.
-    for (let i = 1; i <= Math.min(10, FRAME_COUNT); i++) loadOne(i);
-    for (let i = 11; i <= FRAME_COUNT; i++) loadOne(i);
+    if (badge.complete && badge.naturalWidth) { done(); return; }
+    badge.onload = done;
+    badge.onerror = done;
   });
 }
 
@@ -80,19 +51,15 @@ function initHeroTransition() {
   });
 }
 
-function initFrameScrub() {
+function initBadgeRotation() {
   ScrollTrigger.create({
     trigger: scrollContainer,
     start: "top top",
     end: "bottom bottom",
     scrub: true,
     onUpdate: (self) => {
-      const accelerated = Math.min(self.progress * FRAME_SPEED, 1);
-      const index = Math.min(Math.floor(accelerated * FRAME_COUNT), FRAME_COUNT - 1);
-      if (index !== currentFrame) {
-        currentFrame = index;
-        requestAnimationFrame(() => drawFrame(currentFrame));
-      }
+      const accelerated = Math.min(self.progress * ROTATION_SPEED, 1);
+      badge.style.transform = `rotateY(${accelerated * 360}deg)`;
     },
   });
 }
@@ -217,8 +184,8 @@ function setupSectionAnimation(section) {
 
 async function init() {
   gsap.registerPlugin(ScrollTrigger);
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
+  resizeBadge();
+  window.addEventListener("resize", resizeBadge);
 
   const lenis = new Lenis({
     duration: 1.2,
@@ -230,11 +197,11 @@ async function init() {
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  await loadFrames();
-  drawFrame(0);
+  await loadBadgeImage();
+  resizeBadge();
 
   initHeroTransition();
-  initFrameScrub();
+  initBadgeRotation();
   initMarquee();
   // Dimmed only behind the stats section and the persisting CTA -- other
   // text sections stay readable by keeping clear of the badge spatially

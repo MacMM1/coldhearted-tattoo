@@ -147,7 +147,22 @@ button:focus-visible {
   background: var(--ink);
   perspective: 1800px;
 }
-.badge-img { display: block; will-change: transform; }
+.badge-stage {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.badge-face {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  backface-visibility: hidden;
+}
+.badge-front { transform: rotateY(0deg); }
+/* Local +180 cancels the stage's own +180 at the halfway point, so the back
+   face reads right-side-up instead of mirrored -- not a horizontally
+   flipped image, the two rotations just add up to a net 0deg. */
+.badge-back { transform: rotateY(180deg); }
 
 /* ---------- Dark overlay ---------- */
 #dark-overlay {

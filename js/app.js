@@ -6,7 +6,8 @@ const ROTATION_SPEED = 2.0;
 // so it reads as a centered emblem with real margins above and below.
 const IMAGE_SCALE = 0.34;
 
-const badge = document.getElementById("badge");
+const badgeStage = document.getElementById("badge-stage");
+const badgeFront = document.querySelector(".badge-front");
 const heroSection = document.querySelector(".hero-standalone");
 const scrollContainer = document.getElementById("scroll-container");
 const loader = document.getElementById("loader");
@@ -17,11 +18,11 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 function resizeBadge() {
   const cw = window.innerWidth, ch = window.innerHeight;
-  const iw = badge.naturalWidth, ih = badge.naturalHeight;
+  const iw = badgeFront.naturalWidth, ih = badgeFront.naturalHeight;
   if (!iw || !ih) return;
   const scale = Math.max(cw / iw, ch / ih) * IMAGE_SCALE;
-  badge.style.width = (iw * scale) + "px";
-  badge.style.height = (ih * scale) + "px";
+  badgeStage.style.width = (iw * scale) + "px";
+  badgeStage.style.height = (ih * scale) + "px";
 }
 
 function loadBadgeImage() {
@@ -31,9 +32,9 @@ function loadBadgeImage() {
       loaderPercent.textContent = "100%";
       resolve();
     };
-    if (badge.complete && badge.naturalWidth) { done(); return; }
-    badge.onload = done;
-    badge.onerror = done;
+    if (badgeFront.complete && badgeFront.naturalWidth) { done(); return; }
+    badgeFront.onload = done;
+    badgeFront.onerror = done;
   });
 }
 
@@ -59,7 +60,7 @@ function initBadgeRotation() {
     scrub: true,
     onUpdate: (self) => {
       const accelerated = Math.min(self.progress * ROTATION_SPEED, 1);
-      badge.style.transform = `rotateY(${accelerated * 360}deg)`;
+      badgeStage.style.transform = `rotateY(${accelerated * 360}deg)`;
     },
   });
 }

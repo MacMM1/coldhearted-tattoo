@@ -234,10 +234,11 @@ async function init() {
   initHeroTransition();
   initFrameScrub();
   initMarquee();
-  initDarkOverlay([
-    { enter: 0.56, leave: 0.74 },
-    { enter: 0.86, leave: 0.88, persist: true },
-  ]);
+  // Dimmed for the whole stretch that carries body text/stats over the
+  // badge (starting just before the first text section), not just during
+  // stats+CTA -- otherwise the badge sits at full brightness directly
+  // behind paragraph text and reads as messy overlap.
+  initDarkOverlay([{ enter: 0.05, leave: 0.999, persist: true }]);
 
   document.querySelectorAll(".scroll-section").forEach(setupSectionAnimation);
 

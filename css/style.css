@@ -267,7 +267,7 @@ button:focus-visible {
   display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
   text-align: center;
 }
-.footer-mark { width: 102px; height: 102px; object-fit: contain; opacity: 0.85; }
+.footer-mark { width: 51px; height: 51px; object-fit: contain; opacity: 0.85; }
 .site-footer p {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em;
   color: var(--bone-dim); margin: 0;

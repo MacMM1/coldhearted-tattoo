@@ -76,9 +76,6 @@ function initHeroTransition() {
       const p = self.progress;
       heroSection.style.opacity = Math.max(0, 1 - p * 15);
       heroSection.style.pointerEvents = p > 0.05 ? "none" : "auto";
-      const wipeProgress = Math.min(1, Math.max(0, (p - 0.01) / 0.06));
-      const radius = wipeProgress * 75;
-      canvasWrap.style.clipPath = `circle(${radius}% at 50% 50%)`;
     },
   });
 }

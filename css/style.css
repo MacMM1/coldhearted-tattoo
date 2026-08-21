@@ -82,10 +82,10 @@ button:focus-visible {
   display: flex; align-items: center; justify-content: space-between;
 }
 .nav-mark { display: flex; align-items: center; gap: 0.6rem; }
-.nav-mark img { width: 30px; height: 30px; object-fit: contain; }
+.nav-mark img { width: 90px; height: 90px; object-fit: contain; }
 .nav-mark span {
   font-family: var(--font-display); font-weight: 600;
-  font-size: 0.95rem; letter-spacing: 0.03em;
+  font-size: 1.6rem; letter-spacing: 0.03em;
 }
 .nav-links { display: flex; align-items: center; gap: clamp(1.2rem, 3vw, 2.2rem); }
 .nav-links a {
@@ -144,7 +144,6 @@ button:focus-visible {
 .canvas-wrap {
   position: fixed; inset: 0; z-index: 1;
   display: flex; align-items: center; justify-content: center;
-  clip-path: circle(0% at 50% 50%);
   background: var(--ink);
 }
 #canvas { width: 100%; height: 100%; display: block; }
@@ -268,7 +267,7 @@ button:focus-visible {
   display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
   text-align: center;
 }
-.footer-mark { width: 34px; height: 34px; object-fit: contain; opacity: 0.85; }
+.footer-mark { width: 102px; height: 102px; object-fit: contain; opacity: 0.85; }
 .site-footer p {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em;
   color: var(--bone-dim); margin: 0;

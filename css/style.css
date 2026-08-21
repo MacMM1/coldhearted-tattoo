@@ -78,6 +78,12 @@ button:focus-visible {
   padding: 1.4rem clamp(1.25rem, 4vw, 3rem);
   background: linear-gradient(to bottom, rgba(10,13,18,0.85), transparent);
 }
+/* Past the hero, section text can drift up near the header as it scrolls out
+   (see setupSectionAnimation in app.js) -- the fade-to-transparent gradient
+   doesn't fully occlude it. Once scrolled, switch to a solid fill so the nav
+   always stays legible; the transparent-over-hero look is only needed at the
+   very top anyway. */
+.site-header.scrolled { background: var(--ink); }
 .site-header nav {
   display: flex; align-items: center; justify-content: space-between;
 }
@@ -95,6 +101,8 @@ button:focus-visible {
   transition: color 0.25s ease;
 }
 .nav-links a:hover { color: var(--frost); }
+.nav-links a.nav-current { color: var(--frost); }
+.nav-external::after { content: " \2197"; font-size: 0.85em; }
 .nav-cta {
   border: 1px solid var(--ember); border-radius: 999px;
   padding: 0.5rem 1.1rem; color: var(--bone) !important;
@@ -291,6 +299,110 @@ button:focus-visible {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em;
   color: var(--bone-dim); margin: 0;
 }
+.footer-links { display: flex; gap: 1.2rem; margin-top: 0.2rem; }
+.footer-links a {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--bone-dim);
+}
+.footer-links a:hover { color: var(--frost); }
+
+/* ---------- Studio Updates ---------- */
+.studio-updates {
+  position: relative; z-index: 3; background: var(--ink-raised);
+  padding: clamp(3rem, 7vh, 5rem) clamp(1.5rem, 8vw, 9rem);
+  max-width: 54rem; margin: 0 auto;
+}
+.studio-updates .section-label { color: var(--ember-bright); }
+.studio-updates p {
+  font-family: var(--font-body); font-size: 0.98rem; line-height: 1.7;
+  color: var(--bone-dim); margin: 0 0 1rem;
+}
+.studio-updates p:last-child { margin-bottom: 0; }
+
+/* ---------- Gallery ---------- */
+.gallery-section {
+  position: relative; z-index: 3; background: var(--ink);
+  padding: clamp(4rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 3rem);
+}
+.gallery-label { display: block; text-align: center; }
+.gallery-carousel {
+  position: relative; display: flex; align-items: center; gap: 1rem;
+  max-width: 76rem; margin: 1.5rem auto 0; padding: 0 clamp(1rem, 4vw, 2rem);
+}
+.gallery-track {
+  display: flex; gap: 1rem; flex: 1;
+  overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-track img {
+  width: calc((100% - 2rem) / 3); flex: 0 0 calc((100% - 2rem) / 3);
+  aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px;
+  scroll-snap-align: start;
+}
+.gallery-arrow {
+  flex-shrink: 0; width: 2.6rem; height: 2.6rem; border-radius: 999px;
+  border: 1px solid rgba(231, 227, 218, 0.25); background: transparent;
+  color: var(--bone); font-size: 1.4rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.gallery-arrow:hover { border-color: var(--frost); color: var(--frost); }
+
+/* ---------- Static pages (Booking, FAQ) ---------- */
+.static-page .site-header { background: var(--ink); }
+.static-hero {
+  padding: clamp(8rem, 16vh, 11rem) clamp(1.5rem, 8vw, 9rem) clamp(3rem, 6vh, 4rem);
+  max-width: 48rem;
+}
+.static-hero .section-label { color: var(--steel); }
+.static-hero h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.05; color: var(--bone);
+  margin: 0 0 1rem;
+}
+.static-hero p {
+  font-family: var(--font-body); font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: var(--bone-dim); line-height: 1.6; max-width: 42ch; margin: 0;
+}
+.static-content { padding: 0 clamp(1.5rem, 8vw, 9rem) clamp(5rem, 10vh, 7rem); max-width: 48rem; }
+
+/* Booking */
+.booking-hours { display: flex; flex-direction: column; gap: 0; margin: 0 0 3rem; }
+.booking-hours-row {
+  display: flex; justify-content: space-between; gap: 1.5rem;
+  font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.04em;
+  color: var(--bone-dim); padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(231, 227, 218, 0.1);
+}
+.booking-hours-row span:first-child { color: var(--bone); }
+.booking-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin: 0 0 3rem; }
+.booking-step { padding: 1.5rem; border: 1px solid rgba(231, 227, 218, 0.12); border-radius: 4px; }
+.booking-step-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ember-bright); letter-spacing: 0.1em; }
+.booking-step h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--bone); margin: 0.5rem 0 0.4rem; }
+.booking-step p { font-size: 0.92rem; color: var(--bone-dim); margin: 0; line-height: 1.5; }
+.booking-contact { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+/* FAQ */
+.faq-group { margin: 0 0 3rem; }
+.faq-group h2 {
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--steel); margin: 0 0 1.2rem;
+}
+.faq-item { border-bottom: 1px solid rgba(231, 227, 218, 0.12); padding: 1.1rem 0; }
+.faq-item summary {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
+  color: var(--bone); cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; font-family: var(--font-mono); font-size: 1.2rem;
+  color: var(--bone-dim); flex-shrink: 0; transition: transform 0.25s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { font-family: var(--font-body); font-size: 0.95rem; color: var(--bone-dim); line-height: 1.6; margin: 0.8rem 0 0; }
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -315,4 +427,7 @@ button:focus-visible {
   .stats-grid { flex-direction: column; gap: 2.5rem; }
   .nav-links { gap: 1rem; }
   .nav-links a:not(.nav-cta) { display: none; }
+  .gallery-track img { width: 100%; flex: 0 0 100%; }
+  .booking-steps { grid-template-columns: 1fr; }
+  .static-hero, .static-content { padding-left: 6vw; padding-right: 6vw; }
 }

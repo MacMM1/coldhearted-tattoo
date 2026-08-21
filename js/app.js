@@ -38,6 +38,19 @@ function loadBadgeImage() {
   });
 }
 
+function initHeaderScrollState() {
+  const header = document.querySelector(".site-header");
+  ScrollTrigger.create({
+    trigger: scrollContainer,
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true,
+    onUpdate: (self) => {
+      header.classList.toggle("scrolled", self.progress > 0.02);
+    },
+  });
+}
+
 function initHeroTransition() {
   ScrollTrigger.create({
     trigger: scrollContainer,
@@ -123,6 +136,18 @@ function initDarkOverlay(zones) {
   });
 }
 
+function initGallery() {
+  const track = document.getElementById("gallery-track");
+  if (!track || !track.children.length) return;
+  const step = (dir) => {
+    const width = track.children[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    track.scrollBy({ left: dir * (width + gap), behavior: "smooth" });
+  };
+  document.querySelector(".gallery-prev").addEventListener("click", () => step(-1));
+  document.querySelector(".gallery-next").addEventListener("click", () => step(1));
+}
+
 const ANIMATION_PRESETS = {
   "fade-up": { y: 50, duration: 0.9, stagger: 0.12, ease: "power3.out" },
   "slide-left": { x: -80, duration: 0.9, stagger: 0.14, ease: "power3.out" },
@@ -138,7 +163,12 @@ function setupSectionAnimation(section) {
   const persist = section.dataset.persist === "true";
   const enter = parseFloat(section.dataset.enter) / 100;
   const leave = parseFloat(section.dataset.leave) / 100;
-  const mid = (enter + leave) / 2;
+  // A persisting section stays visible all the way to progress 1 (the true
+  // scroll end), not just to its own `leave` -- centering it on the window's
+  // midpoint means it keeps drifting upward after `leave` and ends up
+  // cropped behind the header at rest. Anchor it on `leave` instead so it's
+  // correctly centered exactly where it actually settles.
+  const mid = persist ? leave : (enter + leave) / 2;
   // ScrollTrigger progress maps to scrollY via start + p*(containerHeight -
   // viewportHeight) -- not p*containerHeight -- so a naive top:mid% lands a
   // few hundred px off from where the section is actually centered in the
@@ -201,6 +231,7 @@ async function init() {
   await loadBadgeImage();
   resizeBadge();
 
+  initHeaderScrollState();
   initHeroTransition();
   initBadgeRotation();
   initMarquee();
@@ -213,6 +244,7 @@ async function init() {
   ]);
 
   document.querySelectorAll(".scroll-section").forEach(setupSectionAnimation);
+  initGallery();
 
   document.querySelectorAll(".stat-number").forEach((el) => {
     const target = parseFloat(el.dataset.value);

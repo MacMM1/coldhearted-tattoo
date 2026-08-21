@@ -100,12 +100,14 @@ function initFrameScrub() {
 function initMarquee() {
   const wrap = document.querySelector(".marquee-wrap");
   const text = wrap.querySelector(".marquee-text");
-  const speed = parseFloat(wrap.dataset.scrollSpeed) || -20;
-  gsap.to(text, {
-    xPercent: speed,
-    ease: "none",
-    scrollTrigger: { trigger: scrollContainer, start: "top top", end: "bottom bottom", scrub: true },
-  });
+  // Runs on its own clock rather than scroll progress -- the wrap is only
+  // ever visible for a short scroll window (see fade below), and tying the
+  // scroll all the way across that whole window used to only pan the text
+  // a few percent, so you'd never see more than one fragment of the
+  // phrase. A continuous loop means the full phrase always cycles through
+  // however long a given viewer's scroll stays in that window. The text
+  // is duplicated in the markup, so looping xPercent 0 -> -50 is seamless.
+  gsap.to(text, { xPercent: -50, duration: 14, ease: "none", repeat: -1 });
   // Ends before section 2 ("Our Craft", bottom-band) enters at 0.24, and the
   // wrap now sits low (top:80%) to clear the badge -- both chosen so the
   // marquee never crosses the badge or foreground section text.
@@ -234,11 +236,13 @@ async function init() {
   initHeroTransition();
   initFrameScrub();
   initMarquee();
-  // Dimmed for the whole stretch that carries body text/stats over the
-  // badge (starting just before the first text section), not just during
-  // stats+CTA -- otherwise the badge sits at full brightness directly
-  // behind paragraph text and reads as messy overlap.
-  initDarkOverlay([{ enter: 0.05, leave: 0.999, persist: true }]);
+  // Dimmed only behind the stats section and the persisting CTA -- other
+  // text sections stay readable by keeping clear of the badge spatially
+  // (narrower text column) rather than by dimming the badge under them.
+  initDarkOverlay([
+    { enter: 0.56, leave: 0.74 },
+    { enter: 0.86, leave: 0.88, persist: true },
+  ]);
 
   document.querySelectorAll(".scroll-section").forEach(setupSectionAnimation);
 

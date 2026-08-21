@@ -165,7 +165,7 @@ button:focus-visible {
 .marquee-text {
   display: inline-block;
   font-family: var(--font-display); font-weight: 600; font-style: italic;
-  font-size: 11vw; letter-spacing: -0.01em; text-transform: uppercase;
+  font-size: 5.5vw; letter-spacing: -0.01em; text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(231, 227, 218, 0.5);
 }
@@ -183,7 +183,7 @@ button:focus-visible {
   padding-left: clamp(1.5rem, 8vw, 9rem);
   padding-right: clamp(1.5rem, 8vw, 9rem);
 }
-.align-top .section-inner, .align-bottom .section-inner { max-width: 40rem; }
+.align-top .section-inner, .align-bottom .section-inner { max-width: 21rem; }
 .align-top { align-items: flex-start; padding-top: clamp(3rem, 9vh, 6rem); }
 .align-bottom { align-items: flex-end; padding-bottom: clamp(5rem, 16vh, 10rem); }
 
@@ -292,7 +292,7 @@ button:focus-visible {
     backdrop-filter: blur(2px);
     padding-top: 3rem; padding-bottom: 3rem;
   }
-  .marquee-text { font-size: 16vw; }
+  .marquee-text { font-size: 8vw; }
   .stats-grid { flex-direction: column; gap: 2.5rem; }
   .nav-links { gap: 1rem; }
   .nav-links a:not(.nav-cta) { display: none; }

@@ -180,7 +180,7 @@ function setupSectionAnimation(section) {
   section.style.transform = "translateY(-50%)";
 
   const children = section.querySelectorAll(
-    ".section-label, .section-heading, .section-body, .section-note, .cta-heading, .cta-links, .stat, .cta-seal"
+    ".section-label, .section-heading, .section-body, .section-note, .cta-heading, .cta-links, .stat, .cta-seal, .section-media-img"
   );
 
   const preset = ANIMATION_PRESETS[type] || ANIMATION_PRESETS["fade-up"];

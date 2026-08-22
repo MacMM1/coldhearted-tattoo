@@ -213,6 +213,15 @@ button:focus-visible {
 .align-top .section-inner, .align-bottom .section-inner { max-width: 21rem; }
 .align-top { align-items: flex-start; padding-top: clamp(3rem, 9vh, 6rem); }
 .align-bottom { align-items: flex-end; padding-bottom: clamp(5rem, 16vh, 10rem); }
+/* Mirrors the left-hand text column but on the right, for supporting imagery
+   paired alongside a text section at the same enter/leave window. */
+.side-right { justify-content: flex-end; }
+.section-media-img {
+  width: 20rem; max-width: 70vw;
+  border-radius: 6px;
+  border: 1px solid rgba(231, 227, 218, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
 
 .section-content { display: flex; min-height: 88vh; }
 .section-label {
@@ -423,7 +432,12 @@ button:focus-visible {
 .booking-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: start; }
 
 /* Contact form (Booking page) */
-.contact-form-section { margin-top: 3rem; }
+.contact-form-section {
+  margin-top: 3rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(231, 227, 218, 0.15);
+  border-radius: 6px;
+}
 .booking-aside .contact-form-section { margin-top: 0; }
 .contact-form-section h2 {
   font-family: var(--font-display); font-weight: 600; font-size: 1.6rem;
@@ -488,6 +502,12 @@ button:focus-visible {
   .nav-links { gap: 1rem; }
   .nav-links a:not(.nav-cta) { display: none; }
   .gallery-track img { width: 100%; flex: 0 0 100%; }
+  /* Shares Who We Are's exact scroll window (see data-enter/leave in
+     index.html), so on mobile -- where sections collapse to one centered
+     column -- both would stack on top of each other at the same position.
+     Simplest fix: keep the portfolio image a desktop-only accent, same as
+     how the main nav links already simplify away on mobile. */
+  .section-media { display: none; }
   .booking-steps { grid-template-columns: 1fr; }
   .static-hero, .static-content { padding-left: 6vw; padding-right: 6vw; }
   .contact-form-row { flex-direction: column; gap: 1.4rem; }

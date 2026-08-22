@@ -414,10 +414,17 @@ button:focus-visible {
 .faq-page .static-hero p { margin-left: auto; margin-right: auto; }
 @media (min-width: 900px) {
   .faq-items { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem; }
+  .faq-item--full { grid-column: 1 / -1; }
 }
+
+/* Booking page: wider, two-column so the Contact form sits beside the
+   hours/steps text rather than stacked beneath everything. */
+.booking-page .static-hero, .booking-page .static-content { max-width: 64rem; margin-left: auto; margin-right: auto; }
+.booking-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: start; }
 
 /* Contact form (Booking page) */
 .contact-form-section { margin-top: 3rem; }
+.booking-aside .contact-form-section { margin-top: 0; }
 .contact-form-section h2 {
   font-family: var(--font-display); font-weight: 600; font-size: 1.6rem;
   color: var(--bone); margin: 0 0 1.5rem;
@@ -484,4 +491,5 @@ button:focus-visible {
   .booking-steps { grid-template-columns: 1fr; }
   .static-hero, .static-content { padding-left: 6vw; padding-right: 6vw; }
   .contact-form-row { flex-direction: column; gap: 1.4rem; }
+  .booking-layout { grid-template-columns: 1fr; }
 }

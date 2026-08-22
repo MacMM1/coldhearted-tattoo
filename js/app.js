@@ -89,10 +89,10 @@ function initMarquee() {
   // however long a given viewer's scroll stays in that window. The text
   // is duplicated in the markup, so looping xPercent 0 -> -50 is seamless.
   gsap.to(text, { xPercent: -50, duration: 14, ease: "none", repeat: -1 });
-  // Ends before section 2 ("Our Craft", bottom-band) enters at 0.24, and the
-  // wrap now sits low (top:80%) to clear the badge -- both chosen so the
-  // marquee never crosses the badge or foreground section text.
-  const fadeIn = 0.03, fadeInEnd = 0.09, fadeOutStart = 0.19, fadeOut = 0.23;
+  // Fully faded out before "Who We Are" enters at 0.14 (see its data-enter in
+  // index.html) so the marquee never overlaps that section's text -- it gets
+  // its own short window right after the hero, then clears out of the way.
+  const fadeIn = 0.04, fadeInEnd = 0.08, fadeOutStart = 0.10, fadeOut = 0.13;
   ScrollTrigger.create({
     trigger: scrollContainer,
     start: "top top",

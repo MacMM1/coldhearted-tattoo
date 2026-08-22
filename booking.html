@@ -22,8 +22,8 @@
       <a href="index.html">Home</a>
       <a href="booking.html" class="nav-current">Booking</a>
       <a href="faq.html">FAQ</a>
-      <a href="https://www.coldheartedtattoo.com/" target="_blank" rel="noopener" class="nav-external">Log In</a>
-      <a href="https://www.coldheartedtattoo.com/book-online" target="_blank" rel="noopener" class="nav-external nav-cta">Book Online Piercings</a>
+      <a href="login.html">Log In</a>
+      <a href="piercings.html" class="nav-cta">Book Online Piercings</a>
     </div>
   </nav>
 </header>
@@ -67,6 +67,31 @@
     <div class="booking-contact">
       <a class="cta-button" href="mailto:coldheartedtattoo@gmail.com?subject=Tattoo%20Enquiry&body=Hi%20Cold%20Hearted%20Tattoo%20team%2C%0D%0A%0D%0AI'd%20like%20to%20enquire%20about%20booking%20a%20tattoo.%0D%0A%0D%0ADescription%20%26%20References%3A%0D%0A%0D%0A%0D%0ASize%2C%20Placement%20%26%20Budget%3A%0D%0A%0D%0A%0D%0AStyle%2C%20Colours%20%26%20Specifics%3A%0D%0A%0D%0A%0D%0APreferred%20Dates%3A%0D%0A%0D%0A%0D%0AThanks!">coldheartedtattoo@gmail.com</a>
       <a class="cta-phone" href="tel:02035242216">020 3524 2216</a>
+    </div>
+
+    <div class="contact-form-section">
+      <h2>Contact Us</h2>
+      <form class="contact-form" action="mailto:coldheartedtattoo@gmail.com" method="post" enctype="text/plain">
+        <div class="contact-form-row">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input type="text" id="first-name" name="First name">
+          </div>
+          <div class="field">
+            <label for="last-name">Last name</label>
+            <input type="text" id="last-name" name="Last name">
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="Email" required>
+        </div>
+        <div class="field">
+          <label for="message">Write a message</label>
+          <textarea id="message" name="Message" rows="5"></textarea>
+        </div>
+        <button type="submit" class="cta-button">Submit</button>
+      </form>
     </div>
   </section>
 </main>

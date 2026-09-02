@@ -594,6 +594,39 @@ button:focus-visible {
   line-height: 1.6; margin: 0 0 2.5rem;
 }
 
+/* Shop page -- same wide, centered treatment as FAQ/Artists. */
+.shop-page .static-hero, .shop-page .static-content { max-width: 66rem; margin-left: auto; margin-right: auto; }
+.shop-page .static-hero { text-align: center; }
+.shop-page .static-hero p { margin-left: auto; margin-right: auto; }
+.shop-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.75rem;
+  margin: 0 0 2rem;
+}
+.shop-card {
+  border: 1px solid rgba(231, 227, 218, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.shop-card img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  background: var(--ink-raised);
+}
+.shop-card-body { padding: 1.25rem; }
+.shop-card-body h3 {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.1rem;
+  color: var(--bone); margin: 0 0 0.5rem;
+}
+.shop-price {
+  display: block; font-family: var(--font-mono); font-size: 0.9rem;
+  color: var(--bone-dim); margin-bottom: 0.9rem;
+}
+.shop-enquire {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em;
+  color: var(--ember-bright);
+}
+.shop-enquire:hover { color: var(--frost); }
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .scroll-indicator svg { animation: none; }

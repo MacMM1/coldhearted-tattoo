@@ -462,11 +462,9 @@ button:focus-visible {
 }
 .contact-form button.cta-button { align-self: flex-start; border: none; cursor: pointer; margin-top: 0.5rem; }
 
-/* Map (Booking page) -- full-width band below the two-column grid, not
-   squeezed into the aside column, so it doesn't tower over the shorter
-   Contact form and throw off the page's overall balance. */
+/* Map (Booking page) -- nested in the aside, below the Contact form. */
 .map-section {
-  margin-top: 3.5rem;
+  margin-top: 1.75rem;
   padding: 1.75rem;
   border: 1px solid rgba(231, 227, 218, 0.15);
   border-radius: 6px;
@@ -480,7 +478,7 @@ button:focus-visible {
   color: var(--bone); margin: 0;
 }
 .map-embed {
-  position: relative; width: 100%; aspect-ratio: 4 / 1;
+  position: relative; width: 100%; aspect-ratio: 1 / 1;
   border-radius: 4px; overflow: hidden;
   border: 1px solid rgba(231, 227, 218, 0.12);
 }
@@ -491,9 +489,6 @@ button:focus-visible {
   color: var(--bone-dim);
 }
 .map-directions:hover { color: var(--frost); }
-@media (max-width: 768px) {
-  .map-embed { aspect-ratio: 4 / 3; }
-}
 
 /* Price list (Piercings page) */
 .price-group { margin: 0 0 2.5rem; }

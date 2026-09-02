@@ -230,7 +230,7 @@ button:focus-visible {
 }
 
 /* ---------- Scroll container & sections ---------- */
-#scroll-container { position: relative; height: 800vh; z-index: 3; }
+#scroll-container { position: relative; height: 656vh; z-index: 3; }
 .scroll-section {
   position: absolute; top: 0; left: 0; width: 100%;
 }
@@ -254,6 +254,11 @@ button:focus-visible {
   border: 1px solid rgba(231, 227, 218, 0.15);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
+/* The portfolio image already shows desktop-side via the paired .section-media
+   block (same enter/leave window as Who We Are) -- this second copy, inline
+   inside Who We Are's own text, is mobile-only so the image isn't lost when
+   .section-media hides on mobile (see the mobile media query below). */
+.who-we-are-mobile-img { display: none; }
 
 .section-content { display: flex; min-height: 88vh; }
 .section-label {
@@ -279,23 +284,6 @@ button:focus-visible {
 .scroll-section:nth-of-type(2) { --accent: #8A6E7C; }
 .scroll-section:nth-of-type(3) { --accent: var(--ember); }
 .scroll-section:nth-of-type(5) { --accent: var(--steel); }
-
-/* Stats */
-.section-stats {
-  min-height: 70vh; display: flex; align-items: center; justify-content: center;
-}
-.stats-grid {
-  display: flex; gap: clamp(2.5rem, 6vw, 6rem); text-align: center;
-}
-.stat { display: flex; flex-direction: column; align-items: center; }
-.stat-number {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(3rem, 7vw, 5.5rem); color: var(--frost); line-height: 1;
-}
-.stat-label {
-  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--bone-dim); margin-top: 0.8rem;
-}
 
 /* CTA */
 .section-cta {
@@ -615,7 +603,7 @@ button:focus-visible {
 
 /* ---------- Mobile ---------- */
 @media (max-width: 768px) {
-  #scroll-container { height: 550vh; }
+  #scroll-container { height: 451vh; }
   .align-top, .align-bottom { padding-left: 6vw; padding-right: 6vw; align-items: center; }
   .align-top .section-inner, .align-bottom .section-inner { max-width: 100%; }
   .section-content { text-align: center; justify-content: center; }
@@ -626,7 +614,7 @@ button:focus-visible {
     padding-top: 3rem; padding-bottom: 3rem;
   }
   .marquee-text { font-size: 8vw; }
-  .stats-grid { flex-direction: column; gap: 2.5rem; }
+  .who-we-are-mobile-img { display: block; width: 100%; max-width: 22rem; margin: 1.75rem auto 0; }
   .nav-mark img { width: 52px; height: 52px; }
   .nav-mark span { font-size: 1.15rem; }
   .nav-toggle { display: flex; }
@@ -651,8 +639,8 @@ button:focus-visible {
   /* Shares Who We Are's exact scroll window (see data-enter/leave in
      index.html), so on mobile -- where sections collapse to one centered
      column -- both would stack on top of each other at the same position.
-     Simplest fix: keep the portfolio image a desktop-only accent, same as
-     how the main nav links already simplify away on mobile. */
+     The image itself isn't lost on mobile: .who-we-are-mobile-img above is
+     a second copy placed inline inside Who We Are's own text instead. */
   .section-media { display: none; }
   .booking-steps { grid-template-columns: 1fr; }
   .static-hero, .static-content { padding-left: 6vw; padding-right: 6vw; }

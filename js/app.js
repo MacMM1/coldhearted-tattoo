@@ -14,8 +14,6 @@ const loader = document.getElementById("loader");
 const loaderBarFill = document.getElementById("loader-bar-fill");
 const loaderPercent = document.getElementById("loader-percent");
 
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 function resizeBadge() {
   const cw = window.innerWidth, ch = window.innerHeight;
   const iw = badgeFront.naturalWidth, ih = badgeFront.naturalHeight;
@@ -89,10 +87,10 @@ function initMarquee() {
   // however long a given viewer's scroll stays in that window. The text
   // is duplicated in the markup, so looping xPercent 0 -> -50 is seamless.
   gsap.to(text, { xPercent: -50, duration: 14, ease: "none", repeat: -1 });
-  // Fully faded out before "Who We Are" enters at 0.14 (see its data-enter in
+  // Fully faded out before "Who We Are" enters at 0.17 (see its data-enter in
   // index.html) so the marquee never overlaps that section's text -- it gets
   // its own short window right after the hero, then clears out of the way.
-  const fadeIn = 0.04, fadeInEnd = 0.08, fadeOutStart = 0.10, fadeOut = 0.13;
+  const fadeIn = 0.05, fadeInEnd = 0.10, fadeOutStart = 0.12, fadeOut = 0.16;
   ScrollTrigger.create({
     trigger: scrollContainer,
     start: "top top",
@@ -235,45 +233,15 @@ async function init() {
   initHeroTransition();
   initBadgeRotation();
   initMarquee();
-  // Dimmed only behind the stats section and the persisting CTA -- other
-  // text sections stay readable by keeping clear of the badge spatially
-  // (narrower text column) rather than by dimming the badge under them.
+  // Dimmed only behind the persisting final CTA -- other text sections stay
+  // readable by keeping clear of the badge spatially (narrower text column)
+  // rather than by dimming the badge under them.
   initDarkOverlay([
-    { enter: 0.56, leave: 0.74 },
-    { enter: 0.86, leave: 0.88, persist: true },
+    { enter: 0.83, leave: 0.85, persist: true },
   ]);
 
   document.querySelectorAll(".scroll-section").forEach(setupSectionAnimation);
   initGallery();
-
-  document.querySelectorAll(".stat-number").forEach((el) => {
-    const target = parseFloat(el.dataset.value);
-    const decimals = parseInt(el.dataset.decimals || "0", 10);
-    const obj = { val: 0 };
-    let counted = false;
-    ScrollTrigger.create({
-      trigger: scrollContainer,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true,
-      onUpdate: (self) => {
-        if (self.progress >= 0.58 && !counted) {
-          counted = true;
-          gsap.to(obj, {
-            val: target,
-            duration: prefersReducedMotion ? 0 : 1.6,
-            ease: "power1.out",
-            snap: { val: decimals === 0 ? 1 : 0.01 },
-            onUpdate: () => { el.textContent = obj.val.toFixed(decimals); },
-          });
-        } else if (self.progress < 0.5 && counted) {
-          counted = false;
-          obj.val = 0;
-          el.textContent = "0";
-        }
-      },
-    });
-  });
 
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (e) => {

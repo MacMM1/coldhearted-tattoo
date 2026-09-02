@@ -535,8 +535,24 @@ button:focus-visible {
 .artist-highlights {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;
   margin-top: 1.5rem;
+  /* Reserve real space before Instagram's JS processes the blockquotes --
+     unprocessed, they collapse to ~0 height, which would cluster every
+     card near the top of the page and defeat scroll-based lazy loading. */
+  min-height: 500px;
 }
 .artist-highlights .instagram-media { margin: 0 !important; width: 100% !important; min-width: 0 !important; }
+.artist-highlights blockquote.instagram-media {
+  display: flex; align-items: center; justify-content: center;
+  height: 500px;
+  border: 1px solid rgba(231, 227, 218, 0.12);
+  border-radius: 4px;
+  background: var(--ink-raised);
+}
+.artist-highlights blockquote.instagram-media a {
+  font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em;
+  color: var(--bone-dim); text-align: center; padding: 1rem;
+}
+.artist-highlights blockquote.instagram-media a:hover { color: var(--frost); }
 @media (max-width: 600px) {
   .artist-card-head { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 }

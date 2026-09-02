@@ -53,6 +53,7 @@
             @ryanr.hart_
           </a>
         </div>
+        <div class="artist-highlights" data-ig-posts="https://www.instagram.com/reel/Dbc3esvNZK8/|https://www.instagram.com/p/DboCqMGjIGr/|https://www.instagram.com/p/C_vOVfCtvoY/"></div>
       </div>
 
       <div class="artist-card">
@@ -66,6 +67,7 @@
             @stickemtothehouse
           </a>
         </div>
+        <div class="artist-highlights" data-ig-posts="https://www.instagram.com/reel/DYegDe_tVTp/|https://www.instagram.com/p/DcpwwvuoRmU/|https://www.instagram.com/p/CyXo4bhoMxa/"></div>
       </div>
 
       <div class="artist-card">
@@ -79,6 +81,7 @@
             @darlingangels_ink
           </a>
         </div>
+        <div class="artist-highlights" data-ig-posts="https://www.instagram.com/reel/DNVPyegIS0s/|https://www.instagram.com/p/DPWbawIjVzu/|https://www.instagram.com/p/DN0N456Wg_h/"></div>
       </div>
 
       <div class="artist-card">
@@ -92,6 +95,7 @@
             @aquilina_official
           </a>
         </div>
+        <div class="artist-highlights" data-ig-posts="https://www.instagram.com/reel/DctjL4ktzMI/|https://www.instagram.com/p/Dbin3MDjSAJ/|https://www.instagram.com/p/Db_CdWbDZAk/"></div>
       </div>
 
       <div class="artist-card">
@@ -105,6 +109,7 @@
             @pierced2perfection_
           </a>
         </div>
+        <div class="artist-highlights" data-ig-posts="https://www.instagram.com/reel/Db6j14AMSyh/|https://www.instagram.com/p/DYSHi47jEbC/|https://www.instagram.com/p/DW_SuKhjNCV/"></div>
       </div>
     </div>
   </section>
@@ -121,5 +126,67 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  // Instagram's embed.js self-processes every ".instagram-media" blockquote
+  // already in the DOM the instant it loads -- that happens automatically,
+  // independent of any later scoped process(element) call. So instead of
+  // pre-rendering all 15 blockquotes and hiding them, each artist's post
+  // URLs are stashed in data-ig-posts and the blockquotes are only CREATED
+  // once that card scrolls into view. That way whichever card triggers the
+  // very first script load only has its own 3 posts in the DOM at that
+  // moment, and later cards inject+reprocess incrementally as the visitor
+  // scrolls -- pacing the requests instead of firing all 15 in one burst,
+  // which is what caused Instagram's embed widget to silently render blank
+  // for everything past the first few during testing.
+  var embedScriptLoading = false;
+  var embedScriptReady = false;
+  var onReadyQueue = [];
+  function ensureEmbedScript(cb) {
+    if (embedScriptReady) { cb(); return; }
+    onReadyQueue.push(cb);
+    if (embedScriptLoading) return;
+    embedScriptLoading = true;
+    var s = document.createElement('script');
+    s.src = 'https://www.instagram.com/embed.js';
+    s.async = true;
+    s.onload = function () {
+      embedScriptReady = true;
+      onReadyQueue.forEach(function (fn) { fn(); });
+      onReadyQueue = [];
+    };
+    document.body.appendChild(s);
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      observer.unobserve(el);
+      var urls = (el.getAttribute('data-ig-posts') || '').split('|').filter(Boolean);
+      urls.forEach(function (url) {
+        var bq = document.createElement('blockquote');
+        bq.className = 'instagram-media';
+        bq.setAttribute('data-instgrm-permalink', url);
+        bq.setAttribute('data-instgrm-version', '14');
+        // Fallback content in case Instagram's widget doesn't render this
+        // one (it silently shows blank instead of erroring under load) --
+        // Embeds.process() replaces this entirely with the real embed on
+        // success, so it's only ever seen when that fails.
+        var fallback = document.createElement('a');
+        fallback.href = url;
+        fallback.target = '_blank';
+        fallback.rel = 'noopener';
+        fallback.textContent = 'View on Instagram ↗';
+        bq.appendChild(fallback);
+        el.appendChild(bq);
+      });
+      ensureEmbedScript(function () { window.instgrm.Embeds.process(); });
+    });
+  }, { rootMargin: '150px 0px' });
+  document.querySelectorAll('.artist-highlights').forEach(function (el) {
+    observer.observe(el);
+  });
+})();
+</script>
 </body>
 </html>

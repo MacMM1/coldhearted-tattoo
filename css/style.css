@@ -394,7 +394,7 @@ button:focus-visible {
 .booking-step-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ember-bright); letter-spacing: 0.1em; }
 .booking-step h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--bone); margin: 0.5rem 0 0.4rem; }
 .booking-step p { font-size: 0.92rem; color: var(--bone-dim); margin: 0; line-height: 1.5; }
-.booking-contact { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.booking-contact { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; margin-top: auto; }
 
 /* FAQ */
 .faq-group { margin: 0 0 3rem; }
@@ -430,7 +430,8 @@ button:focus-visible {
 /* Booking page: wider, two-column so the Contact form sits beside the
    hours/steps text rather than stacked beneath everything. */
 .booking-page .static-hero, .booking-page .static-content { max-width: 64rem; margin-left: auto; margin-right: auto; }
-.booking-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: start; }
+.booking-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: stretch; }
+.booking-main { display: flex; flex-direction: column; }
 
 /* Contact form (Booking page) */
 .contact-form-section {

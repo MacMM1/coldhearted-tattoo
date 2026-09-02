@@ -461,6 +461,32 @@ button:focus-visible {
 }
 .contact-form button.cta-button { align-self: flex-start; border: none; cursor: pointer; margin-top: 0.5rem; }
 
+/* Map (Booking page) */
+.map-section {
+  margin-top: 1.75rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(231, 227, 218, 0.15);
+  border-radius: 6px;
+}
+.map-section h2 {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.6rem;
+  color: var(--bone); margin: 0 0 1.25rem;
+}
+.map-embed {
+  position: relative; width: 100%; aspect-ratio: 4 / 3;
+  border-radius: 4px; overflow: hidden;
+  border: 1px solid rgba(231, 227, 218, 0.12);
+  filter: grayscale(1) invert(0.9) contrast(0.85);
+}
+.map-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.map-directions {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 1rem;
+  font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em;
+  color: var(--bone-dim);
+}
+.map-directions:hover { color: var(--frost); }
+
 /* Price list (Piercings page) */
 .price-group { margin: 0 0 2.5rem; }
 .price-group h2 {

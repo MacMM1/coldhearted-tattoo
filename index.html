@@ -144,15 +144,21 @@
   <div class="gallery-carousel" id="gallery-carousel">
     <button class="gallery-arrow gallery-prev" type="button" aria-label="Previous photos">&#8249;</button>
     <div class="gallery-track" id="gallery-track">
-      <img src="assets/gallery/photo-1.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-2.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-3.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-4.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-5.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-6.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-7.jpg" alt="Cold Hearted Tattoo studio event" loading="lazy">
-      <img src="assets/gallery/photo-8.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
-      <img src="assets/gallery/photo-9.jpg" alt="Cold Hearted Tattoo studio and merch" loading="lazy">
+      <!-- No loading="lazy" here -- these sit in a horizontally-scrolling
+           track, not the normal vertical page flow, and browsers don't
+           reliably prefetch lazy images that are off to the side rather
+           than below the fold. Swiping to the last couple of photos could
+           outrun the fetch and show a blank frame (same class of bug as
+           the Google Maps iframe fix on the Booking page). -->
+      <img src="assets/gallery/photo-1.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-2.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-3.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-4.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-5.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-6.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-7.jpg" alt="Cold Hearted Tattoo studio event">
+      <img src="assets/gallery/photo-8.jpg" alt="Cold Hearted Tattoo studio and merch">
+      <img src="assets/gallery/photo-9.jpg" alt="Cold Hearted Tattoo studio and merch">
     </div>
     <button class="gallery-arrow gallery-next" type="button" aria-label="Next photos">&#8250;</button>
   </div>

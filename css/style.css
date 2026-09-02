@@ -109,6 +109,29 @@ button:focus-visible {
 }
 .nav-cta:hover { background: var(--ember); color: var(--ink) !important; }
 
+/* Mobile menu toggle -- hidden on desktop, shown + wired to a slide-in
+   .nav-links panel at the 768px breakpoint (see js/nav.js). */
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 34px; height: 34px; padding: 0; margin: 0;
+  background: none; border: none; cursor: pointer; flex-shrink: 0;
+  position: relative; z-index: 601;
+}
+.nav-toggle span {
+  display: block; width: 100%; height: 2px; background: var(--bone);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-scrim {
+  position: fixed; inset: 0; z-index: 599;
+  background: rgba(10, 13, 18, 0.7);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.nav-scrim.nav-open { opacity: 1; visibility: visible; }
+
 /* ---------- Hero ---------- */
 .hero-standalone {
   position: relative; z-index: 10;
@@ -595,8 +618,26 @@ button:focus-visible {
   }
   .marquee-text { font-size: 8vw; }
   .stats-grid { flex-direction: column; gap: 2.5rem; }
-  .nav-links { gap: 1rem; }
-  .nav-links a:not(.nav-cta) { display: none; }
+  .nav-mark img { width: 52px; height: 52px; }
+  .nav-mark span { font-size: 1.15rem; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed; top: 0; right: 0; z-index: 600;
+    width: min(78vw, 320px); height: 100vh;
+    flex-direction: column; align-items: stretch;
+    gap: 0; padding: 6.5rem 2rem 2rem;
+    background: var(--ink); border-left: 1px solid rgba(231, 227, 218, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+  .nav-links.nav-open { transform: translateX(0); }
+  .nav-links a {
+    font-size: 0.8rem; padding: 1rem 0;
+    border-bottom: 1px solid rgba(231, 227, 218, 0.08);
+  }
+  .nav-links a.nav-cta {
+    margin-top: 1.5rem; text-align: center; border-bottom: 1px solid var(--ember);
+  }
   .gallery-track img { width: 100%; flex: 0 0 100%; }
   /* Shares Who We Are's exact scroll window (see data-enter/leave in
      index.html), so on mobile -- where sections collapse to one centered
@@ -608,4 +649,7 @@ button:focus-visible {
   .static-hero, .static-content { padding-left: 6vw; padding-right: 6vw; }
   .contact-form-row { flex-direction: column; gap: 1.4rem; }
   .booking-layout { grid-template-columns: 1fr; }
+  .booking-hours-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  .booking-hours-row span:first-child { min-width: 0; }
+  .booking-hours-row span:last-child { text-align: left; }
 }

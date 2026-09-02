@@ -15,7 +15,16 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  /* Off-screen scroll-sections still carry their GSAP entrance transform
+     (e.g. slide-left/-right's +-80px) the instant the page loads, even
+     while visibility:hidden -- that's enough to inflate the document's
+     scrollable width past the viewport on narrower phones. overflow-x on
+     body alone doesn't stop that growth on mobile Safari; it has to be on
+     html too, or the fixed badge layer shows through the gap on one side. */
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   background:
